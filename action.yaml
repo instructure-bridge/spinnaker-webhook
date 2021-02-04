@@ -20,7 +20,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: $GITHUB_ACTION_PATH/spinnaker-deploy.sh
+    - run: $GITHUB_ACTION_PATH/spinnaker-webhook.sh
       shell: bash
       env:
         INPUT_TOKEN: ${{ inputs.token }}
