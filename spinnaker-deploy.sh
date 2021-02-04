@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 USING_TOKEN=''
 if [ -n "${INPUT_TOKEN}" ]; then

@@ -14,7 +14,7 @@ like this:
 
 Typical usage of this action looks like this:
 
-    - uses: spinnaker-webhook
+    - uses: instructure-bridge/spinnaker-webhook
       with:
         token: ${{ secrets.SPINNAKER_TRIGGER_TOKEN }}
         host: spinnaker-host
