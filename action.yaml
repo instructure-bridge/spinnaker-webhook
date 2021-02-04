@@ -1,0 +1,29 @@
+name: Spinnaker Webhook
+description: initiates a deploy on spinnaker
+inputs:
+  token:
+    description: |
+      the auth token. this can also be passed in with
+      the env SPINNAKER_TOKEN.
+  host:
+    description: |
+      the host of the spinnaker. this can also be passed
+      in with the env SPINNAKER_HOST.
+  webhook:
+    description: |
+      the webhook name. this can also be passed in with
+      the env SPINNAKER_WEBHOOK.
+  sha:
+    description: |
+      what sha to pass to spinnaker to deploy. if this
+      is not specified, it will use GITHUB_SHA
+runs:
+  using: "composite"
+  steps:
+    - run: $GITHUB_ACTION_PATH/spinnaker-deploy.sh
+      shell: bash
+      env:
+        INPUT_TOKEN: ${{ inputs.token }}
+        INPUT_HOST: ${{ inputs.host }}
+        INPUT_WEBHOOK: ${{ inputs.webhook }}
+        INPUT_SHA: ${{ inputs.sha }}

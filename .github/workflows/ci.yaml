@@ -1,0 +1,56 @@
+name: Spinnaker Webhook Tests
+
+on:
+  push: {}
+
+jobs:
+  works-input:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          token: ${{ secrets.SPINNAKER_TOKEN }}
+          host: ${{ secrets.SPINNAKER_HOST }}
+          webhook: ${{ secrets.SPINNAKER_WEBHOOK }}
+
+  works-env:
+    runs-on: ubuntu-latest
+    env:
+      SPINNAKER_TOKEN: ${{ secrets.SPINNAKER_TOKEN }}
+      SPINNAKER_HOST: ${{ secrets.SPINNAKER_HOST }}
+      SPINNAKER_WEBHOOK: ${{ secrets.SPINNAKER_WEBHOOK }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+
+
+  fails-no-token:
+    runs-on: ubuntu-latest
+    env:
+      SPINNAKER_HOST: ${{ secrets.SPINNAKER_HOST }}
+      SPINNAKER_WEBHOOK: ${{ secrets.SPINNAKER_WEBHOOK }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        continue-on-error: true
+
+  fails-no-host:
+    runs-on: ubuntu-latest
+    env:
+      SPINNAKER_TOKEN: ${{ secrets.SPINNAKER_TOKEN }}
+      SPINNAKER_WEBHOOK: ${{ secrets.SPINNAKER_WEBHOOK }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        continue-on-error: true
+
+  fails-no-webhook:
+    runs-on: ubuntu-latest
+    env:
+      SPINNAKER_TOKEN: ${{ secrets.SPINNAKER_TOKEN }}
+      SPINNAKER_HOST: ${{ secrets.SPINNAKER_HOST }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        continue-on-error: true
