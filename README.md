@@ -1,3 +1,7 @@
+# spinnaker-webhook
+
+[![Spinnaker Webhook Tests](https://github.com/instructure-bridge/spinnaker-webhook/actions/workflows/ci.yaml/badge.svg)](https://github.com/instructure-bridge/spinnaker-webhook/actions/workflows/ci.yaml)
+![tag](https://img.shields.io/github/v/tag/instructure-bridge/spinnaker-webhook?sort=semver)
 
 This action will call the spinnaker webhook with a payload that looks
 like this:
@@ -11,6 +15,8 @@ like this:
         "committer_email": "${COMMITTER_EMAIL}"
       }
     }
+
+## Usage
 
 Typical usage of this action looks like this:
 
