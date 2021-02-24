@@ -24,7 +24,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
 
-
   fails-no-token:
     runs-on: ubuntu-latest
     env:
@@ -32,8 +31,10 @@ jobs:
       SPINNAKER_WEBHOOK: ${{ secrets.SPINNAKER_WEBHOOK }}
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
-        continue-on-error: true
+      - run: |
+          set +e
+          ./spinnaker-webhook.sh
+          test "1" = "$?"
 
   fails-no-host:
     runs-on: ubuntu-latest
@@ -42,8 +43,10 @@ jobs:
       SPINNAKER_WEBHOOK: ${{ secrets.SPINNAKER_WEBHOOK }}
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
-        continue-on-error: true
+      - run: |
+          set +e
+          ./spinnaker-webhook.sh
+          test "1" = "$?"
 
   fails-no-webhook:
     runs-on: ubuntu-latest
@@ -52,5 +55,7 @@ jobs:
       SPINNAKER_HOST: ${{ secrets.SPINNAKER_HOST }}
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
-        continue-on-error: true
+      - run: |
+          set +e
+          ./spinnaker-webhook.sh
+          test "1" = "$?"
