@@ -22,8 +22,8 @@ Typical usage of this action looks like this:
 
 You can also specify these environment variables to remove the with:
 
-    SPINNAKER_TOKEN
-    SPINNAKER_HOST
-    SPINNAKER_WEBHOOK
-    SPINNAKER_SHA
-    SPINNAKER_EXTRA_PARAMS
+    SPINNAKER_WEBHOOK_TOKEN
+    SPINNAKER_WEBHOOK_HOST
+    SPINNAKER_WEBHOOK_WEBHOOK
+    SPINNAKER_WEBHOOK_SHA
+    SPINNAKER_WEBHOOK_EXTRA_PARAMS

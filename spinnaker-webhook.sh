@@ -5,8 +5,8 @@ set -e
 USING_TOKEN=''
 if [ -n "${INPUT_TOKEN}" ]; then
   USING_TOKEN="${INPUT_TOKEN}"
-elif [ -n "${SPINNAKER_TOKEN}" ]; then
-  USING_TOKEN="${SPINNAKER_TOKEN}"
+elif [ -n "${SPINNAKER_WEBHOOK_TOKEN}" ]; then
+  USING_TOKEN="${SPINNAKER_WEBHOOK_TOKEN}"
 else
   echo "no token found"
   exit 1
@@ -15,28 +15,28 @@ fi
 USING_HOST=''
 if [ -n "${INPUT_HOST}" ]; then
   USING_HOST="${INPUT_HOST}"
-elif [ -n "${SPINNAKER_HOST}" ]; then
-  USING_HOST="${SPINNAKER_HOST}"
+elif [ -n "${SPINNAKER_WEBHOOK_HOST}" ]; then
+  USING_HOST="${SPINNAKER_WEBHOOK_HOST}"
 else
   echo "no host found"
   exit 1
 fi
 
-USING_WEBHOOK=''
-if [ -n "${INPUT_WEBHOOK}" ]; then
-  USING_WEBHOOK="${INPUT_WEBHOOK}"
-elif [ -n "${SPINNAKER_WEBHOOK}" ]; then
-  USING_WEBHOOK="${SPINNAKER_WEBHOOK}"
+USING_NAME=''
+if [ -n "${INPUT_NAME}" ]; then
+  USING_NAME="${INPUT_NAME}"
+elif [ -n "${SPINNAKER_WEBHOOK_NAME}" ]; then
+  USING_NAME="${SPINNAKER_WEBHOOK_NAME}"
 else
-  echo "no webhook found"
+  echo "no name found"
   exit 1
 fi
 
 USING_SHA="${GITHUB_SHA}"
 if [ -n "${INPUT_SHA}" ]; then
   USING_SHA="${INPUT_SHA}"
-elif [ -n "${SPINNAKER_SHA}" ]; then
-  USING_SHA="${SPINNAKER_SHA}"
+elif [ -n "${SPINNAKER_WEBHOOK_SHA}" ]; then
+  USING_SHA="${SPINNAKER_WEBHOOK_SHA}"
 fi
 if [ -z "${USING_SHA}" ]; then
   echo "no sha found"
@@ -46,8 +46,8 @@ fi
 USING_EXTRA_PARAMS="{}"
 if [ -n "${INPUT_EXTRA_PARAMS}" ]; then
   USING_EXTRA_PARAMS="${INPUT_EXTRA_PARAMS}"
-elif [ -n "${SPINNAKER_EXTRA_PARAMS}" ]; then
-  USING_EXTRA_PARAMS="${SPINNAKER_EXTRA_PARAMS}"
+elif [ -n "${SPINNAKER_WEBHOOK_EXTRA_PARAMS}" ]; then
+  USING_EXTRA_PARAMS="${SPINNAKER_WEBHOOK_EXTRA_PARAMS}"
 fi
 
 message=$(git show --format=%s --no-patch $USING_SHA)
@@ -79,4 +79,4 @@ echo "$(echo "$webhook_body" | jq .)"
 curl -X POST --fail --show-error \
   --data "$webhook_body" \
   --header 'Content-Type: application/json' \
-  https://${USING_HOST}/webhooks/webhook/${USING_WEBHOOK}
+  https://${USING_HOST}/webhooks/webhook/${USING_NAME}
