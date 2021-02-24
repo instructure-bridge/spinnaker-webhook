@@ -35,10 +35,19 @@ fi
 USING_SHA="${GITHUB_SHA}"
 if [ -n "${INPUT_SHA}" ]; then
   USING_SHA="${INPUT_SHA}"
+elif [ -n "${SPINNAKER_SHA}" ]; then
+  USING_SHA="${SPINNAKER_SHA}"
 fi
 if [ -z "${USING_SHA}" ]; then
   echo "no sha found"
   exit 1
+fi
+
+USING_EXTRA_PARAMS="{}"
+if [ -n "${INPUT_EXTRA_PARAMS}" ]; then
+  USING_EXTRA_PARAMS="${INPUT_EXTRA_PARAMS}"
+elif [ -n "${SPINNAKER_EXTRA_PARAMS}" ]; then
+  USING_EXTRA_PARAMS="${SPINNAKER_EXTRA_PARAMS}"
 fi
 
 message=$(git show --format=%s --no-patch $USING_SHA)
@@ -52,16 +61,20 @@ webhook_body=$(jq --null-input \
   --arg message "$message" \
   --arg committer_name "$committer_name" \
   --arg committer_email "$committer_email" \
+  --argjson extra_params "$USING_EXTRA_PARAMS" \
   '{
     $token,
-    parameters: {
+    parameters: ({
       $sha,
       $message,
       $committer_name,
       $committer_email
-    }
+    } + $extra_params)
   }'
 )
+
+echo "payload"
+echo "$(echo "$webhook_body" | jq .)"
 
 curl -X POST --fail --show-error \
   --data "$webhook_body" \
