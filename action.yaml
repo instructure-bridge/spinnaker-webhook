@@ -16,7 +16,12 @@ inputs:
   sha:
     description: |
       what sha to pass to spinnaker to deploy. if this
-      is not specified, it will use GITHUB_SHA
+      is not specified, it will use SPINNAKER_SHA or GITHUB_SHA
+  extraParams:
+    default: '{}'
+    description: |
+      pass in a json object to add parameters to the 
+      webhook call. it will also check the env SPINNAKER_EXTRA_PARAMS
 runs:
   using: "composite"
   steps:
@@ -27,3 +32,4 @@ runs:
         INPUT_HOST: ${{ inputs.host }}
         INPUT_WEBHOOK: ${{ inputs.webhook }}
         INPUT_SHA: ${{ inputs.sha }}
+        INPUT_EXTRA_PARAMS: ${{ inputs.extraParams }}

@@ -14,12 +14,34 @@ jobs:
           host: ${{ secrets.SPINNAKER_HOST }}
           webhook: ${{ secrets.SPINNAKER_WEBHOOK }}
 
+  works-input-with-extra-params:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          token: ${{ secrets.SPINNAKER_TOKEN }}
+          host: ${{ secrets.SPINNAKER_HOST }}
+          webhook: ${{ secrets.SPINNAKER_WEBHOOK }}
+          extraParams: '{"hello":"adam"}'
+
   works-env:
     runs-on: ubuntu-latest
     env:
       SPINNAKER_TOKEN: ${{ secrets.SPINNAKER_TOKEN }}
       SPINNAKER_HOST: ${{ secrets.SPINNAKER_HOST }}
       SPINNAKER_WEBHOOK: ${{ secrets.SPINNAKER_WEBHOOK }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+
+  works-env-with-extra-params:
+    runs-on: ubuntu-latest
+    env:
+      SPINNAKER_TOKEN: ${{ secrets.SPINNAKER_TOKEN }}
+      SPINNAKER_HOST: ${{ secrets.SPINNAKER_HOST }}
+      SPINNAKER_WEBHOOK: ${{ secrets.SPINNAKER_WEBHOOK }}
+      SPINNAKER_EXTRA_PARAMS: '{"hello":"adam"}'
     steps:
       - uses: actions/checkout@v2
       - uses: ./
