@@ -14,7 +14,7 @@ like this:
 
 Typical usage of this action looks like this:
 
-    - uses: instructure-bridge/spinnaker-webhook
+    - uses: instructure-bridge/spinnaker-webhook@v1
       with:
         token: ${{ secrets.SPINNAKER_TRIGGER_TOKEN }}
         host: spinnaker-host
@@ -25,3 +25,5 @@ You can also specify these environment variables to remove the with:
     SPINNAKER_TOKEN
     SPINNAKER_HOST
     SPINNAKER_WEBHOOK
+    SPINNAKER_SHA
+    SPINNAKER_EXTRA_PARAMS
