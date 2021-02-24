@@ -12,7 +12,7 @@ jobs:
         with:
           token: ${{ secrets.SPINNAKER_TOKEN }}
           host: ${{ secrets.SPINNAKER_HOST }}
-          webhook: ${{ secrets.SPINNAKER_WEBHOOK }}
+          name: ${{ secrets.SPINNAKER_NAME }}
 
   works-input-with-extra-params:
     runs-on: ubuntu-latest
@@ -22,15 +22,15 @@ jobs:
         with:
           token: ${{ secrets.SPINNAKER_TOKEN }}
           host: ${{ secrets.SPINNAKER_HOST }}
-          webhook: ${{ secrets.SPINNAKER_WEBHOOK }}
+          name: ${{ secrets.SPINNAKER_NAME }}
           extraParams: '{"hello":"adam"}'
 
   works-env:
     runs-on: ubuntu-latest
     env:
-      SPINNAKER_TOKEN: ${{ secrets.SPINNAKER_TOKEN }}
-      SPINNAKER_HOST: ${{ secrets.SPINNAKER_HOST }}
-      SPINNAKER_WEBHOOK: ${{ secrets.SPINNAKER_WEBHOOK }}
+      SPINNAKER_WEBHOOK_TOKEN: ${{ secrets.SPINNAKER_TOKEN }}
+      SPINNAKER_WEBHOOK_HOST: ${{ secrets.SPINNAKER_HOST }}
+      SPINNAKER_WEBHOOK_NAME: ${{ secrets.SPINNAKER_NAME }}
     steps:
       - uses: actions/checkout@v2
       - uses: ./
@@ -38,10 +38,10 @@ jobs:
   works-env-with-extra-params:
     runs-on: ubuntu-latest
     env:
-      SPINNAKER_TOKEN: ${{ secrets.SPINNAKER_TOKEN }}
-      SPINNAKER_HOST: ${{ secrets.SPINNAKER_HOST }}
-      SPINNAKER_WEBHOOK: ${{ secrets.SPINNAKER_WEBHOOK }}
-      SPINNAKER_EXTRA_PARAMS: '{"hello":"adam"}'
+      SPINNAKER_WEBHOOK_TOKEN: ${{ secrets.SPINNAKER_TOKEN }}
+      SPINNAKER_WEBHOOK_HOST: ${{ secrets.SPINNAKER_HOST }}
+      SPINNAKER_WEBHOOK_NAME: ${{ secrets.SPINNAKER_NAME }}
+      SPINNAKER_WEBHOOK_EXTRA_PARAMS: '{"hello":"adam"}'
     steps:
       - uses: actions/checkout@v2
       - uses: ./
@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SPINNAKER_HOST: ${{ secrets.SPINNAKER_HOST }}
-      SPINNAKER_WEBHOOK: ${{ secrets.SPINNAKER_WEBHOOK }}
+      SPINNAKER_WEBHOOK_NAME: ${{ secrets.SPINNAKER_NAME }}
     steps:
       - uses: actions/checkout@v2
       - run: |
@@ -61,8 +61,8 @@ jobs:
   fails-no-host:
     runs-on: ubuntu-latest
     env:
-      SPINNAKER_TOKEN: ${{ secrets.SPINNAKER_TOKEN }}
-      SPINNAKER_WEBHOOK: ${{ secrets.SPINNAKER_WEBHOOK }}
+      SPINNAKER_WEBHOOK_TOKEN: ${{ secrets.SPINNAKER_TOKEN }}
+      SPINNAKER_WEBHOOK_NAME: ${{ secrets.SPINNAKER_NAME }}
     steps:
       - uses: actions/checkout@v2
       - run: |
@@ -73,8 +73,8 @@ jobs:
   fails-no-webhook:
     runs-on: ubuntu-latest
     env:
-      SPINNAKER_TOKEN: ${{ secrets.SPINNAKER_TOKEN }}
-      SPINNAKER_HOST: ${{ secrets.SPINNAKER_HOST }}
+      SPINNAKER_WEBHOOK_TOKEN: ${{ secrets.SPINNAKER_TOKEN }}
+      SPINNAKER_WEBHOOK_HOST: ${{ secrets.SPINNAKER_HOST }}
     steps:
       - uses: actions/checkout@v2
       - run: |
