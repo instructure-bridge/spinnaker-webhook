@@ -20,7 +20,7 @@ like this:
 
 Typical usage of this action looks like this:
 
-    - uses: get-bridge/spinnaker-webhook@v1
+    - uses: get-bridge/spinnaker-webhook@v2
       with:
         token: ${{ secrets.SPINNAKER_TRIGGER_TOKEN }}
         host: spinnaker-host
