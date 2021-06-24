@@ -24,12 +24,12 @@ Typical usage of this action looks like this:
       with:
         token: ${{ secrets.SPINNAKER_TRIGGER_TOKEN }}
         host: spinnaker-host
-        webhook: project-web-hook
+        name: project-web-hook
 
 You can also specify these environment variables to remove the with:
 
     SPINNAKER_WEBHOOK_TOKEN
     SPINNAKER_WEBHOOK_HOST
-    SPINNAKER_WEBHOOK_WEBHOOK
+    SPINNAKER_WEBHOOK_NAME
     SPINNAKER_WEBHOOK_SHA
     SPINNAKER_WEBHOOK_EXTRA_PARAMS
